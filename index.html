@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Video Player</title>
+    <style>
+        #videoPlayer {
+            width: 80%;
+            max-width: 800px;
+        }
+        #controls {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        button, input[type="range"] {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <video id="videoPlayer" controls>
+        <source id="videoSource" src="videos/sample.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <div id="controls">
+        <button id="playPauseBtn">Play/Pause</button>
+        <button id="secPlayBtn">Sec-Play</button>
+        <button id="framePlayBtn">Frame-Play</button>
+        <input type="range" id="seekBar" value="0" min="0">
+        <input type="file" id="selectVideo" accept="video/*">
+    </div>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const secPlayBtn = document.getElementById('secPlayBtn');
+        const framePlayBtn = document.getElementById('framePlayBtn');
+        const seekBar = document.getElementById('seekBar');
+        const selectVideo = document.getElementById('selectVideo');
+        const videoSource = document.getElementById('videoSource');
+
+        playPauseBtn.addEventListener('click', () => {
+            if (video.paused) {
+                video.play();
+                playPauseBtn.textContent = 'Pause';
+            } else {
+                video.pause();
+                playPauseBtn.textContent = 'Play';
+            }
+        });
+
+        secPlayBtn.addEventListener('click', () => {
+            video.currentTime += 1;  // Seek 1 second forward
+        });
+
+        framePlayBtn.addEventListener('click', () => {
+            const fps = 30;  // Assuming the video has 30 frames per second
+            video.currentTime += 1 / fps;  // Seek one frame forward
+        });
+
+        video.addEventListener('timeupdate', () => {
+            seekBar.value = (video.currentTime / video.duration) * 100;
+        });
+
+        seekBar.addEventListener('input', () => {
+            const seekTo = video.duration * (seekBar.value / 100);
+            video.currentTime = seekTo;
+        });
+
+        selectVideo.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const fileURL = URL.createObjectURL(file);
+                videoSource.src = fileURL;
+                video.load();
+                playPauseBtn.textContent = 'Play';
+            }
+        });
+    </script>
+
+</body>
+</html>
