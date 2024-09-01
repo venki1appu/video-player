@@ -1,0 +1,65 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Video container styling */
+.video-container {
+    background: #222;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Video player styling */
+.video {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 8px;
+}
+
+/* Controls styling */
+#controls {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+button, input[type="range"], input[type="file"] {
+    margin: 5px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, input[type="range"]:hover, input[type="file"]:hover {
+    background-color: #0056b3;
+}
+
+/* Seek bar styling */
+input[type="range"] {
+    width: 60%;
+}
+
+input[type="file"] {
+    background-color: #28a745;
+}
+
+input[type="file"]:hover {
+    background-color: #218838;
+}
