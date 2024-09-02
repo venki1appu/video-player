@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Change this to your default branch name if different
+      - main  # Adjust to your branch
 
 jobs:
   deploy:
@@ -12,19 +12,18 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
-
-    - name: Setup Node.js (Optional if using Node.js for building)
-      uses: actions/setup-node@v3
       with:
-        node-version: '16'
+        fetch-depth: 0  # Fetch the full history
 
-    - name: Build the site (Optional if you need to build it)
+    - name: Set up Git
       run: |
-        # If you have a build step, add commands here
-        # e.g., npm install && npm run build
+        git config user.name "Your Name"
+        git config user.email "your-email@example.com"
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./  # The directory to deploy (e.g., ./docs or ./build)
+        publish_dir: ./  # Adjust to your build directory
+        force_orphan: true  # Use if deploying to gh-pages branch
+
